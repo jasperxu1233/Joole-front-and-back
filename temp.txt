@@ -1,0 +1,44 @@
+        <p
+            style={{
+                // height:1000,
+                // width:1000
+            }}
+        >
+            <div
+                style={{
+                    color : "black",
+                    // height:500,
+                    // width:1000,
+                    fontSize : 15,
+                }}
+            >
+                <div>
+                    <Row>
+                        <Col span="8">.col-8</Col>
+                        <Col span="8" offset="8">.col-8</Col>
+                    </Row>
+                    <Row>
+                        <Col span="6" offset="6">.col-6 .col-offset-6</Col>
+                        <Col span="6" offset="6">.col-6 .col-offset-6</Col>
+                    </Row>
+                    <Row>
+                        <Col span="12" offset="6">.col-12 .col-offset-6</Col>
+                    </Row>
+                </div>
+            </div>
+            <div
+                style={{
+                    // height : 300,
+                }}
+            >
+
+            </div>
+
+            <div
+                style={{
+                color : "black"
+            }}
+            >
+                nihao
+            </div>
+        </p>
