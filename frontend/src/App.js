@@ -5,9 +5,15 @@ import {Layout} from "antd";
 import {Content, Header} from "antd/es/layout/layout";
 import SignUp from "./components/SignUp";
 import Background from "./629055.jpg";
+import {useEffect, useState} from "react";
+import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
+import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
+import {connect} from "react-redux";
 
 
 function App() {
+
+    const [authed, setAuthed] = useState(false);
 
   return (
       <Layout
@@ -31,11 +37,26 @@ function App() {
                   // backgroundColor : "inherit"
                   // backgroundImage: `url(${Background})`,
               }}
-          >
-              <Login/>
+          >{
+              authed ?
+                  <div>
+                      nihao
+                  </div>:
+                  <Login Onsuccess = { () => setAuthed(true)}/>
+          }
           </Content>
       </Layout>
   );
 }
 
 export default App;
+
+// const mapStateToProps = (state) => {
+//     return
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//     return
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
