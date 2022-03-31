@@ -40,9 +40,26 @@ export const checkAuthTimeout = (expirationTime) => {
     };
 };
 
-export const signUp = () => {
+export const signUp = (name, password, isSignUp) => {
     return dispatch => {
-
+        console.log("321321321");
+        dispatch(authStart());
+        const authDate = {
+            name : name,
+            password : password,
+        };
+        let url = 'localhost:8080/joole/users/register';
+        if (!isSignUp) {
+            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
+        }
+        axios.put(url, authDate)
+            .then(response => {  // successfully signup
+                console.log(response);
+                dispatch(authSuccess(response.data.idToken, name));
+            })
+            .catch(err => {
+                dispatch(authFail(err));
+            })
     }
 }
 
@@ -70,13 +87,8 @@ export const auth = (name, password, isSignUp) => {
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(err => {
-                dispatch(authFail(err.response.data.error));
+                dispatch(authFail(err));
             })
-            .finally(() => {
-                this.setState({
-                    loading : false
-                })
-            });
     };
 }
 

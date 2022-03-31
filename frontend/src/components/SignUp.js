@@ -2,12 +2,17 @@ import {Form, Button, Modal, Input} from "antd";
 import {EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined} from "@ant-design/icons";
 import React from "react";
 import Background from "../629055.jpg";
+import {auth, signUp} from "../actions/action";
+import {connect} from "react-redux";
 
 
 class SignUp extends React.Component {
     state = {
-        displayModal: false,
-        loading : false
+        name : null,
+        password : null,
+        displayModal: this.props.loading,
+        loading : this.props.loading,
+        isSignUp: true,
     };
 
 
@@ -23,10 +28,28 @@ class SignUp extends React.Component {
         });
     };
 
-    onFinish = (data) => {
+    condition = () => {
+        if(this.props.error === null && this.props.isAuthenticated && !this.props.load){
+            this.setState(
+                {
+                    loading : this.props.loading,
+                    displayModal : this.props.loading
+                }
+            )
+        }
+    }
+
+
+    onFinish = () => {
         this.setState({
             loading : true
         });
+        this.props.signUp(this.state.name, this.state.password, this.state.isSignUp);
+        this.setState({
+            loading : this.props.loading
+        })
+        setTimeout(this.condition,1500);
+
         // signup(data)
         //     .then(() => {
         //         this.setState({
@@ -77,7 +100,7 @@ class SignUp extends React.Component {
                                 { required: true, message: "Please input your name!" },
                             ]}
                         >
-                            <Input placeholder="name" />
+                            <Input placeholder="name"  onChange={event => this.setState({name:event.target.value})}/>
                         </Form.Item>
                         <Form.Item
                             name="password"
@@ -88,6 +111,7 @@ class SignUp extends React.Component {
                             <Input.Password
                                 placeholder="Please input your password!"
                                 iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                onChange={event => this.setState({password:event.target.value})}
                             />
                         </Form.Item>
                         <Form.Item>
@@ -106,5 +130,25 @@ class SignUp extends React.Component {
     };
 }
 
+const mapStateToProps = (state) => {
+    return {
+        // loading: state.auth.loading,
+        // error: state.auth.error,
+        // isAuthenticated: state.auth.token !== null,
+        loading: state.loading,
+        error: state.error,
+        isAuthenticated: state.token !== null,
+        name : state.name !== null,
+        // authRedirectPath: state.auth.authRedirectPath
+    };
+};
 
-export default SignUp;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signUp: ( name, password, isSignup ) => dispatch( signUp( name, password, isSignup ) ),
+        // onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+// export default SignUp;

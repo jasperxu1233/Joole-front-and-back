@@ -51,7 +51,7 @@ class Login extends React.Component {
         if(this.props.error === null && this.props.isAuthenticated && !this.props.load){
             this.setState(
                 {
-                    loading : false
+                    loading : this.props.loading
                 }
             )
             this.props.Onsuccess();
@@ -59,12 +59,12 @@ class Login extends React.Component {
     }
 
     onFinish = () => {
-        this.setState({
-            loading : true
-        });
         this.props.onAuth(this.state.name, this.state.password, this.state.isSignUp);
+        this.setState({
+            loading : this.props.loading
+        });
 
-        setTimeout(this.condition,2000);
+        setTimeout(this.condition,1500);
         // return dispatch => {
         //     console.log("123123123");
         //     dispatch(authStart());
@@ -184,7 +184,7 @@ class Login extends React.Component {
                             <Button
                                 type="primary"
                                 htmlType="submit"
-                                loading = {this.props.loading}
+                                loading = {this.state.loading}
                             >
                                 Log In
                             </Button>
