@@ -11,7 +11,7 @@ body {
   background: linear-gradient(rgb(166,202,241), white);
   outline-style: solid;
   border-style: solid;
-  border-width: thin;
+  border-width: initial;
 }
 
 code {

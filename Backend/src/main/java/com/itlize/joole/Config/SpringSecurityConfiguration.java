@@ -55,7 +55,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 
-        httpSecurity.csrf().disable()
+        httpSecurity
+                .csrf().disable()
                 //Cross-origin-resource-sharing
                 .cors().and()
                 .authorizeRequests()

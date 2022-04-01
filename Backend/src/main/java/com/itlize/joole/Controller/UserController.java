@@ -32,7 +32,7 @@ public class UserController {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-
+//    @CrossOrigin(origins = "http://localhost:3000/")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) throws Exception {
         try {
@@ -53,6 +53,7 @@ public class UserController {
         return  new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000/")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         if (userService.findByUsername(user.getUsername()) != null) {

@@ -1,8 +1,8 @@
 import {Form, Button, Modal, Input} from "antd";
 import {EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined} from "@ant-design/icons";
 import React from "react";
-import Background from "../629055.jpg";
-import {auth, signUp} from "../actions/action";
+import Background from "../../629055.jpg";
+import {auth, signUp} from "../../actions/action";
 import {connect} from "react-redux";
 
 
@@ -10,9 +10,10 @@ class SignUp extends React.Component {
     state = {
         name : null,
         password : null,
-        displayModal: this.props.loading,
-        loading : this.props.loading,
+        displayModal: false,
+        loading : false,
         isSignUp: true,
+        ModalTwo : false,
     };
 
 
@@ -28,14 +29,27 @@ class SignUp extends React.Component {
         });
     };
 
+    RemindCancel = () => {
+        this.setState({
+            ModalTwo : false,
+        })
+    }
+
     condition = () => {
-        if(this.props.error === null && this.props.isAuthenticated && !this.props.load){
+        if(this.props.signUpSuccess){
             this.setState(
                 {
-                    loading : this.props.loading,
-                    displayModal : this.props.loading
+                    loading : false,
+                    displayModal : false
                 }
             )
+
+        }else{
+            this.setState({
+                loading : false,
+                displayModal : true,
+                ModalTwo : true,
+            })
         }
     }
 
@@ -45,10 +59,7 @@ class SignUp extends React.Component {
             loading : true
         });
         this.props.signUp(this.state.name, this.state.password, this.state.isSignUp);
-        this.setState({
-            loading : this.props.loading
-        })
-        setTimeout(this.condition,1500);
+        setTimeout(this.condition,1000);
 
         // signup(data)
         //     .then(() => {
@@ -100,7 +111,7 @@ class SignUp extends React.Component {
                                 { required: true, message: "Please input your name!" },
                             ]}
                         >
-                            <Input placeholder="name"  onChange={event => this.setState({name:event.target.value})}/>
+                            <Input placeholder="Please input your name!"  onChange={event => this.setState({name:event.target.value})}/>
                         </Form.Item>
                         <Form.Item
                             name="password"
@@ -124,6 +135,18 @@ class SignUp extends React.Component {
                             </Button>
                         </Form.Item>
                     </Form>
+                    <Modal
+                        title={"Reminding!"}
+                        onCancel={this.RemindCancel}
+                        onOk={this.RemindCancel}
+                        destroyOnClose={true}
+                        style={{color:"white"}}
+                        visible={this.state.ModalTwo}
+                    >
+                        <p style={{color:"black", fontSize:20,}}>
+                            UserName occupied, please try again!
+                        </p>
+                    </Modal>
                 </Modal>
             </>
         );
@@ -139,6 +162,7 @@ const mapStateToProps = (state) => {
         error: state.error,
         isAuthenticated: state.token !== null,
         name : state.name !== null,
+        signUpSuccess : state.signUpSuccess,
         // authRedirectPath: state.auth.authRedirectPath
     };
 };
