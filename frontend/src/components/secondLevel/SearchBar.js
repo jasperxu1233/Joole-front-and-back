@@ -61,6 +61,7 @@ class SearchBar extends React.Component {
         )
     }
 }
+//select, table, collapse + slider
 //点击某个按键，fetch project，然后显示在button上，然后选中button（select？待查询），输入manufacture，点击放大镜查询，搜索该project下，对应的
 //该manufacture的product（可以先拿到所有的product，然后是在某个manufacture下的然后显示出来？还是后端需要再写个api？待思考（可以在后端加一个controller，做拿到productList之后的manufacture的筛查再返回productList））
 // 并且isListing为true，进入另外一个显示界面，随后searchbar到title去，下面就是将所有的product显示出来就行（table或者form，看选择？待查询）
