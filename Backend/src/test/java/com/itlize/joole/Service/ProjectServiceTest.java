@@ -20,24 +20,22 @@ class ProjectServiceTest {
 
 //    @Test
 //    void creatProject() {
-//        User user1 = new User("project.user1", "111", "basic");
-//        userService.createUser(user1);
-//
+//        User user1 = userService.findByUsername("cccc");
+
 //        Project project1 = new Project();
 //        project1.setProjectName("project.test1");
-//        project1.setId(1L);
 //        project1.setUser(user1);
-//
+
 //        projectService.creatProject(project1);
-//
-//        User user2 = new User("project.user2", "222", "admin");
-//        userService.createUser(user2);
-//        Project project2 = new Project(2L, "project.test2", user2);
+
+//        Project project2 = new Project();
+//        project2.setProjectName("project.test2");
+//        project2.setUser(user1);
 //        projectService.creatProject(project2);
-//
+
 //        System.out.println(project1);
 //        System.out.println(project2);
-//
+
 //        Assertions.assertNotNull(project1);
 //        Assertions.assertNotNull(project2);
 //    }

@@ -50,8 +50,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(Long id, String projectName, User user) {
-        this.id = id;
+    public Project(String projectName, User user) {
         this.projectName = projectName;
         this.user = user;
     }

@@ -4,3 +4,6 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const SIGNUP_SUCCESS = "SIGN_SUCCESS";
 export const SIGNUP_FAIL = "SIGN_FAIL";
+
+export const FETCH_PROJECT_SUCCESS = "FETCH_PROJECT_SUCCESS"
+export const FETCH_PROJECT_FAIL = "FETCH_PROJECT_FAIL"

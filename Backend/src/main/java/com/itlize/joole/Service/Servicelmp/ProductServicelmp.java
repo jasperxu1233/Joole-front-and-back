@@ -50,6 +50,7 @@ public class ProductServicelmp implements ProductService {
     @Override
     public void updateProduct(Product productUpdated) {
         Product productFromDB = productRepository.findById(productUpdated.getId()).orElse(null);
+        assert productFromDB != null;
         productFromDB.setManufacturer(productUpdated.getManufacturer());
         productFromDB.setSeries(productUpdated.getSeries());
         productFromDB.setModel(productUpdated.getModel());
@@ -71,7 +72,6 @@ public class ProductServicelmp implements ProductService {
         productFromDB.setHeightMax(productUpdated.getHeightMax());
         productFromDB.setHeightMin(productUpdated.getHeightMin());
         productFromDB.setWeight(productUpdated.getWeight());
-
         productRepository.save(productFromDB);
     }
 

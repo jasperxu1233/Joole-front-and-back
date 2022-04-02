@@ -1,6 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 import LogoutTitle from "../secondLevel/LogoutTitle";
+import SearchTitle from "../secondLevel/SearchTitle";
 
 class Headers extends React.Component {
 
@@ -11,9 +12,8 @@ class Headers extends React.Component {
                 {
                 this.props.isListing
                      ?
-                     <div>
-                         nihao
-                     </div>:
+                    <SearchTitle/>
+                    :
                 <LogoutTitle/>
                  }
             </div>

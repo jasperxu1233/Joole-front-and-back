@@ -40,8 +40,7 @@ public class ProjectProduct {
     public ProjectProduct() {
     }
 
-    public ProjectProduct(Long id, Product product, Project project) {
-        this.id = id;
+    public ProjectProduct(Product product, Project project) {
         this.product = product;
         this.project = project;
     }

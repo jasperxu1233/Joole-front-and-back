@@ -1,5 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
+import ListContent from "../secondLevel/ListContent";
+import SearchContent from "../secondLevel/SearchContent";
 
 
 class Contents extends React.Component {
@@ -7,7 +9,13 @@ class Contents extends React.Component {
     render() {
         return (
             <div>
-                THIS IS CONTENT!
+                {
+                    this.props.isListing
+                    ?
+                        <ListContent/>
+                        :
+                        <SearchContent/>
+                }
             </div>
         )
 

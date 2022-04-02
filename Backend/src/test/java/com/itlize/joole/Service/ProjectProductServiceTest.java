@@ -25,22 +25,32 @@ class ProjectProductServiceTest {
     ProductService productService;
     @Autowired
     ProjectProductService projectProductService;
-//
+
 //    @Test
 //    void createProjectProduct() {
-//        User user1 = new User("projectProduct.user1", "111", "basic");
-//        userService.createUser(user1);
-//        Project project1 = new Project(11L, "projectProduct.test1", user1);
-//        projectService.creatProject(project1);
-//        Product product1 = new Product();
-//        product1.setId(123L);
-//        product1.setFanSpeedMax(100);
-//        productService.createProduct(product1);
+//        User user1 = userService.findByUsername("cccc");
+//        Project project1 = projectService.findByProjectName("project.test1");
+//        Project project2 = projectService.findByProjectName("project.test2");
 //
-//        ProjectProduct projectProduct1 = new ProjectProduct(1L, product1, project1);
+//        Product product1 = productService.findByProductId(1L);
+//        Product product2 = productService.findByProductId(2L);
+//        Product product3 = productService.findByProductId(3L);
+//
+//
+//        ProjectProduct projectProduct1 = new ProjectProduct(product1, project1);
+//        ProjectProduct projectProduct2 = new ProjectProduct(product2, project1);
+//
+//
+//        ProjectProduct projectProduct3 = new ProjectProduct(product3, project2);
+//
+//
 //        projectProductService.createProjectProduct(projectProduct1);
+//        projectProductService.createProjectProduct(projectProduct2);
+//        projectProductService.createProjectProduct(projectProduct3);
 //
 //        Assertions.assertNotNull(projectProduct1);
+//        Assertions.assertNotNull(projectProduct2);
+//        Assertions.assertNotNull(projectProduct3);
 //    }
 //
 //    @Test

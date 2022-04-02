@@ -72,7 +72,7 @@ class Login extends React.Component {
     }
 
     onFinish = () => {
-        console.log(this.state.name)
+        // console.log(this.state.name)
         this.props.onAuth(this.state.name, this.state.password, this.state.isSignUp);
         this.setState({
             loading : true
