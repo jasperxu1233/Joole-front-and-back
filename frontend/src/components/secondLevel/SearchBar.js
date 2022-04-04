@@ -1,32 +1,78 @@
 import React from "react";
-import {Form, Input} from "antd";
+import {Form, Input, Select} from "antd";
 import {connect} from "react-redux";
-import {auth, fetchProject} from "../../actions/action";
+import {auth, fetchProduct, fetchProject} from "../../actions/action";
+import Search from "antd/es/input/Search";
+import banner from "../../background1.jpg";
+
+const {Option} = Select;
 
 class SearchBar extends React.Component {
+    state = {
+        projectId : null,
+        manufacturerName : null,
+    }
+
+    handleChange = (value) => {
+        // console.log(value);
+        this.setState({
+            projectId : value,
+        })
+    }
+
+    onSearch = (value) => {
+        // console.log(value);
+        this.setState({
+            manufacturerName : value,
+        })
+        this.props.fetchProduct(this.state.projectId, this.state.manufacturerName);
+    }
+
 
     render() {
         return(
-            <div>
-                <Form
-                    style={{textAlign:"center"}}
-                    name="normal_register"
-                    labelCol={{ span: 9 }}
-                    wrapperCol={{ span: 6 }}
-                    initialValues={{ remember: true }}
-                    onFinish={this.onFinish}
-                    preserve={false}
-                >
-                    <Form.Item
-                        label="search:"
-                        name="userName"
-                        rules={[
-                            { required: true, message: "Please input your name!" },
-                        ]}
-                        onChange={event => this.setState({name:event.target.value})}
-                    >
-                        <Input placeholder="Please input your name!" onChange={event => this.setState({name:event.target.value})}/>
-                    </Form.Item>
+            <>
+                <Select defaultValue=""
+                        style={{
+                            // float:"center",
+                            // display: "inline-block",
+                            width: 120,
+                        }}
+                        onChange={this.handleChange}>
+                    {
+                        this.props.projectList.map((item) => {
+                            return <Option value = {item.id} key = {item.projectName}>
+                                {item.projectName}
+                            </Option>
+                            }
+                        )
+                    }
+                </Select>
+                <Search placeholder= "Please input manufacture name"
+                        onSearch={this.onSearch}
+                        style={{
+                            // float:"center",
+                            // display: "inline-block",
+                            width:300,}}/>
+                {/*<Form*/}
+                {/*    style={{textAlign:"center"}}*/}
+                {/*    name="normal_register"*/}
+                {/*    labelCol={{ span: 9 }}*/}
+                {/*    wrapperCol={{ span: 6 }}*/}
+                {/*    initialValues={{ remember: true }}*/}
+                {/*    onFinish={this.onFinish}*/}
+                {/*    preserve={false}*/}
+                {/*>*/}
+                {/*    <Form.Item*/}
+                {/*        label="search:"*/}
+                {/*        name="userName"*/}
+                {/*        rules={[*/}
+                {/*            { required: true, message: "Please input your name!" },*/}
+                {/*        ]}*/}
+                {/*        onChange={event => this.setState({name:event.target.value})}*/}
+                {/*    >*/}
+                {/*        <Input placeholder="Please input your name!" onChange={event => this.setState({name:event.target.value})}/>*/}
+                {/*    </Form.Item>*/}
                     {/*<Form.Item*/}
                     {/*    label="password:"*/}
                     {/*    name="password"*/}
@@ -55,9 +101,8 @@ class SearchBar extends React.Component {
                     {/*        Log In*/}
                     {/*    </Button>*/}
                     {/*</Form.Item>*/}
-                </Form>
-            </div>
-
+                {/*</Form>*/}
+            </>
         )
     }
 }
@@ -70,13 +115,14 @@ class SearchBar extends React.Component {
 //点击放大镜查询之后再改变isListing的值为true
 const mapStateToProps = (state) => {
     return{
-        projectList : state.projectList
+        projectList : state.projectList,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
         fetchProject: () => dispatch( fetchProject() ),
+        fetchProduct: (projectId, manufacturerName) => dispatch(fetchProduct(projectId, manufacturerName) ),
     }
 }
 

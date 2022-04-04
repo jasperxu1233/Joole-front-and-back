@@ -25,7 +25,6 @@ class ProjectServiceTest {
 //        Project project1 = new Project();
 //        project1.setProjectName("project.test1");
 //        project1.setUser(user1);
-
 //        projectService.creatProject(project1);
 
 //        Project project2 = new Project();
@@ -33,11 +32,18 @@ class ProjectServiceTest {
 //        project2.setUser(user1);
 //        projectService.creatProject(project2);
 
+//        Project project3 = new Project();
+//        project3.setProjectName("project.test3");
+//        project3.setUser(user1);
+//        projectService.creatProject(project3);
+
 //        System.out.println(project1);
 //        System.out.println(project2);
+//        System.out.println(project3);
 
 //        Assertions.assertNotNull(project1);
 //        Assertions.assertNotNull(project2);
+//        Assertions.assertNotNull(project3);
 //    }
 //
 //    @Test

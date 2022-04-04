@@ -20,36 +20,8 @@ class Login extends React.Component {
         displayModal : false
     };
 
-    // auth = (email, password, isSignup) => {
-    //     return dispatch => {
-    //         dispatch(authStart());
-    //         const authData = {
-    //             email: email,
-    //             password: password,
-    //             returnSecureToken: true
-    //         };
-    //         let url = 'localhost:8080/joole/users/login';
-    //         if (!isSignup) {
-    //             url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
-    //         }
-    //         axios.post(url, authData)
-    //             .then(response => {
-    //                 console.log(response);
-    //                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-    //                 localStorage.setItem('token', response.data.idToken);
-    //                 localStorage.setItem('expirationDate', expirationDate);
-    //                 localStorage.setItem('userId', response.data.localId);
-    //                 dispatch(authSuccess(response.data.idToken, response.data.localId));
-    //                 dispatch(checkAuthTimeout(response.data.expiresIn));
-    //             })
-    //             .catch(err => {
-    //                 dispatch(authFail(err.response.data.error));
-    //             });
-    //     };
-    // };
-
     condition = () => {
-        if(this.props.error === null && this.props.isAuthenticated && !this.props.loading){
+        if(this.props.isAuthenticated){
             this.setState(
                 {
                     loading : false
@@ -78,54 +50,6 @@ class Login extends React.Component {
             loading : true
         });
         setTimeout(this.condition,1000);
-        // return dispatch => {
-        //     console.log("123123123");
-        //     dispatch(authStart());
-        //     const authData = {
-        //         name: data.name,
-        //         password: data.password,
-        //     };
-        //     let url = 'localhost:8080/joole/users/login';
-        //     if (!this.state.isSignUp) {
-        //         url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
-        //     }
-        //     axios.post(url, JSON.stringify(authData))
-        //         .then(response => {  // successfully login
-        //             console.log(response);
-        //             this.props.Onsuccess();
-        //
-        //             const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-        //             localStorage.setItem('token', response.data.idToken);
-        //             localStorage.setItem('expirationDate', expirationDate);
-        //             localStorage.setItem('userId', data.name);
-        //             dispatch(authSuccess(response.data.idToken, data.name));
-        //             dispatch(checkAuthTimeout(response.data.expiresIn));
-        //         })
-        //         .catch(err => {
-        //             dispatch(authFail(err.response.data.error));
-        //         })
-        //         .finally(() => {
-        //             this.setState({
-        //                 loading : false
-        //             })
-        //         });
-        // };
-
-        // signup(data)
-        //     .then(() => {
-        //         this.setState({
-        //             displayModal: false,
-        //         });
-        //         message.success(`Successfully signed up`);
-        //     })
-        //     .catch((err) => {
-        //         message.error(err.message);
-        //     })
-        //     .finally(() => {
-        //         this.setState({
-        //             loading : false
-        //         })
-        //     });
     };
 
     render() {

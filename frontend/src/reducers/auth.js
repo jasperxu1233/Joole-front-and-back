@@ -7,14 +7,15 @@ const initialState = {
     token : null,
     error : null,
     loading : false,
-    interfaceShowing : true,
+    interfaceShowing : false,
     signUpSuccess : true,
     isListing : false,
     projectList : [],
+    productList : [],
 }
 
 const authStart = ( state, action ) => {
-    return updateObject( state, { error: null, loading: true, interfaceShowing: true } );
+    return updateObject( state, { error: null, loading: true } );
 };
 
 const signUpSuccess = (state, action) => {
@@ -32,7 +33,7 @@ const authSuccess = (state, action) => {
         name: action.userId,
         error: null,
         loading: false,
-        interfaceShowing: false,
+        interfaceShowing: true,
     } );
 };
 
@@ -40,12 +41,12 @@ const authFail = (state, action) => {
     return updateObject( state, {
         error: action.error,
         loading: false,
-        interfaceShowing: true,
+        interfaceShowing: false,
     });
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { token: null, name: null, interfaceShowing: true, loading: false, error: null,});
+    return updateObject(state, { token: null, name: null, interfaceShowing: false, loading: false, error: null,});
 };
 
 const setAuthRedirectPath = (state, action) => {
@@ -60,6 +61,18 @@ const requestProjectFail = (state, action) => {
     return updateObject(state, {error: action.err})
 }
 
+const requestProductSuccess = (state, action) => {
+    return updateObject(state, {productList: action.product, isListing: true})
+}
+
+const requestProductFail = (state, action) => {
+    return updateObject(state, {error : action.err, isListing: false})
+}
+
+const requestReturnToSearch = (state, action) => {
+    return updateObject(state, {isListing : false})
+}
+
 const auth = (state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.AUTH_START: return authStart(state, action);
@@ -70,6 +83,9 @@ const auth = (state = initialState, action ) => {
         case actionTypes.SIGNUP_FAIL: return signUpFail(state, action);
         case actionTypes.FETCH_PROJECT_SUCCESS : return requestProjectSuccess(state, action);
         case actionTypes.FETCH_PROJECT_FAIL :return requestProjectFail(state, action);
+        case actionTypes.FETCH_PRODUCT_SUCCESS : return requestProductSuccess(state, action);
+        case actionTypes.FETCH_PRODUCT_FAIL : return requestProductFail(state, action);
+        case actionTypes.RETURN_TO_SEARCH : return requestReturnToSearch(state, action);
         // case actionTypes.SET_AUTH_REDIRECT_PATH: return setAuthRedirectPath(state,action);
         default:
             return state;

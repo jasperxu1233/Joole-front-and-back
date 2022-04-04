@@ -30,13 +30,19 @@ class LogoutTitle extends React.Component {
 
     render = () => {
         return (
-            <div>
+            <div
+                style={{
+                    display : "inline-block",
+                    float : "right",
+                }}
+            >
                 <Button shape="round" type="primary" onClick={this.onshow}
                         style={{
                             // backgroundImage: `url(${Background})`,
                             backgroundColor : "inherit",
                             borderWidth:0,
                             color:"black",
+                            display : "inline-block",
                         }}>
                     Logout
                 </Button>

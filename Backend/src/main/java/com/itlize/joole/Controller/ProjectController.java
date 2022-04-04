@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -175,6 +176,24 @@ public class ProjectController {        //NOT BEEN TESTED
             return new ResponseEntity<>("You have no project about projectId: " + projectId, HttpStatus.OK);
         }
         return new ResponseEntity<>(projectProductService.findAllProductByProject(project), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllProductByProjectIdAndManufacturer")
+    public ResponseEntity<?> getAllProductByProjectIdAndManufacturer(@RequestParam(name = "projectId") Long projectId, @RequestParam(name = "manufacturerName") String manufacturer, Principal principal) {
+        Project project = projectService.findByProjectId(projectId);
+        if(project == null){
+            return new ResponseEntity<>("No project in this DB!", HttpStatus.OK);
+        }
+        if(!project.getUser().getUsername().equals(principal.getName())){
+            return new ResponseEntity<>("You have no project about projectId: " + projectId, HttpStatus.OK);
+        }
+        List<Product> productList = new ArrayList<>();
+        for(Product product: projectProductService.findAllProductByProject(project)){
+            if (product.getManufacturer().equals(manufacturer)){
+                productList.add(product);
+            }
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     //should be with username instead of id

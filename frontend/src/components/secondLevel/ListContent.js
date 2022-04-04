@@ -1,16 +1,22 @@
 import React from "react";
 import {connect} from "react-redux"
+import {Button} from "antd";
+import {auth, returnToSearch} from "../../actions/action";
 
 class ListContent extends React.Component {
 
+    onReturn = () => {
+        this.props.returnToSearch();
+    }
 
     render() {
         return(
             <div>
-                <table>
-                    nihao
-
-                </table>
+                <Button
+                    onClick={this.onReturn}
+                >
+                    return
+                </Button>
             </div>
 
         )
@@ -23,9 +29,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
     return{
-
+        returnToSearch : () => dispatch(returnToSearch()),
     }
 }
 

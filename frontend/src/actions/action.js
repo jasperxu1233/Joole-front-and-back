@@ -62,15 +62,15 @@ export const signUp = (name, password, isSignUp) => {
             username : name,
             password : password,
         };
-        // if(new Date().getTime() >= new Date(localStorage.getItem('expirationDate'))){
-        //     axios.defaults.headers.common['Authorization'] = ``;
-        // }
-        // let url = 'http://localhost:8080/joole/users/register';
-        let url = 'users/register';
+        if(new Date().getTime() >= new Date(localStorage.getItem('expirationDate'))){
+            axios.defaults.headers.common['Authorization'] = ``;
+        }
+        let url = 'http://localhost:8080/joole/users/register';
+        // let url = 'users/register';
         if (!isSignUp) {
             url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
         }
-        instance.post(url, authDate)
+        axios.post(url, authDate)
             .then(response => {  // successfully signup
                 console.log(response);
                 dispatch(SignUpSuccess())
@@ -90,16 +90,16 @@ export const auth = (name, password, isSignUp) => {
             password: password,
         };
         // console.log(authData)
-        // let url = 'http://localhost:8080/joole/users/login';
+        let url = 'http://localhost:8080/joole/users/login';
 
-        let url = '/users/login';
+        // let url = '/users/login';
         if (!isSignUp) {
             url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBdHVdiAhum7t4UG8c0fHGT-PXUwKvurK4';
         }
-        // if(new Date().getTime() >= new Date(localStorage.getItem('expirationDate'))){
-        //     axios.defaults.headers.common['Authorization'] = ``;
-        // }
-        instance.post(url, authData)
+        if(new Date().getTime() >= new Date(localStorage.getItem('expirationDate'))){
+            axios.defaults.headers.common['Authorization'] = ``;
+        }
+        axios.post(url, authData)
             .then(response => {  // successfully login
                 console.log(response);
                 const lastingTime = 1000 * 60 * 60;
@@ -110,6 +110,8 @@ export const auth = (name, password, isSignUp) => {
                 localStorage.setItem('userId', name);
                 dispatch(authSuccess(response.data, name));
                 dispatch(checkAuthTimeout(lastingTime));
+                // dispatch(setTimeout(()=>{dispatch(fetchProject())},2000));
+                dispatch(intermediateFetch());
             })
             .catch(err => {
                 dispatch(authFail(err));
@@ -137,16 +139,24 @@ export const fetchProjectFail = (e) => {
 // 就算是刷新到主界面也可以用token，账户名+密码重新登录相当于重新登陆，而且就算跳刷新回到主界面之后，
 // 没及时登录token失效，也会相当于跳回主界面，清除local storage和axios的token，相当于要求重新登陆。）
 // used to fetch all project under current user
+
+export const intermediateFetch = () => {
+    return dispatch => {
+        setTimeout(()=>dispatch(fetchProject()),1000);
+    }
+}
+
+
 export const fetchProject = () => {
     return dispatch => {
         // instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
         // console.log(instance.defaults.headers.common['Authorization']);
 
-        // let url = 'http://localhost:8080/joole/projects/getAllProject';
+        let url = 'http://localhost:8080/joole/projects/getAllProject';
         // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
-
-        let url = '/projects/getAllProject';
-        instance.get(url)
+        axios.defaults.headers.common['Authorization'] = new Date().getTime() >= new Date(localStorage.getItem('expirationDate'))?``:`Bearer ${localStorage.getItem("token")}`;
+        // let url = '/projects/getAllProject';
+        axios.get(url)
             .then(res => {
                 dispatch(fetchProjectSuccess(res.data));
                 console.log(res.data);
@@ -157,7 +167,44 @@ export const fetchProject = () => {
     }
 }
 
+export const fetchProduct = (projectId, manufacturerName) => {
+    return dispatch => {
+        axios.defaults.headers.common['Authorization'] = new Date().getTime() >= new Date(localStorage.getItem('expirationDate'))?``:`Bearer ${localStorage.getItem("token")}`;
+        const queryParams = '?projectId=' + projectId + '&manufacturerName='+manufacturerName;
+        let url = 'http://localhost:8080/joole/projects/getAllProductByProjectIdAndManufacturer';
+        axios.get(url + queryParams)
+            .then(
+                res => {
+                    console.log(res.data);
+                    dispatch(fetchProductSuccess(res.data));
+                }
+            )
+            .catch(err => {
+                console.log(err);
+                dispatch(fetchProductFAIL(err));
+            })
+    }
+}
 
+export const fetchProductSuccess = (res) => {
+    return {
+        type : actionTypes.FETCH_PRODUCT_SUCCESS,
+        product : res
+    }
+}
+
+export const fetchProductFAIL = (e) => {
+    return {
+        type : actionTypes.FETCH_PRODUCT_FAIL,
+        err : e
+    }
+}
+
+export const returnToSearch = () => {
+    return {
+        type : actionTypes.RETURN_TO_SEARCH
+    }
+}
 
 // export const setAuthRedirectPath = (path) => {
 //     return {

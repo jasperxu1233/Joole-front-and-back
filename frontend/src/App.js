@@ -69,6 +69,11 @@ class App extends React.Component{
     //     })
     // }
 
+    // state = {
+    //     loading : this.props.interfaceShowing,
+    // }
+
+
     render() {
         return (
             <Layout
@@ -85,10 +90,11 @@ class App extends React.Component{
                         {
                             // this.state.refresh
                             this.props.interfaceShowing
+                            // this.state.loading
                                 ?
-                                <SignUp/>
-                                :
                                 <Headers/>
+                                :
+                            <SignUp/>
                         }
                 </Header>
                 <Content
@@ -103,13 +109,13 @@ class App extends React.Component{
                     {
                     // this.state.refresh
                         this.props.interfaceShowing
+                        // this.state.loading
                         ?
-                        <Login
                             // Onsuccess = {this.onRefresh}
-                        />
-                        :
-                        <Contents/>
-                }
+                            <Contents/>
+                            :
+                            <Login/>
+                    }
                 </Content>
             </Layout>
         );
