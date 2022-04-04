@@ -44,6 +44,7 @@ class SearchTitle extends React.Component {
                             float:"center",
                             display: "inline-block",
                             width: 120,
+                            margin:-16,
                         }}
                         onChange={this.handleChange}>
                     {
@@ -60,8 +61,10 @@ class SearchTitle extends React.Component {
                         style={{
                             float:"center",
                             display: "inline-block",
-                            width:300,}}/>
-
+                            width:300,
+                            margin : 16,
+                        }}
+                />
                 <Button shape="round" type="primary" onClick={this.onshow}
                         style={{
                             // backgroundImage: `url(${Background})`,
@@ -70,6 +73,7 @@ class SearchTitle extends React.Component {
                             color:"black",
                             display : "inline-block",
                             float : "right",
+                            margin  :16,
                         }}>
                     Logout
                 </Button>
