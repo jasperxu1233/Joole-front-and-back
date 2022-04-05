@@ -14,6 +14,7 @@ class SearchTitle extends React.Component {
     state = {
         projectId : null,
         manufacturerName : null,
+        displayModal : false
     }
 
     handleChange = (value) => {
@@ -31,6 +32,21 @@ class SearchTitle extends React.Component {
         this.props.fetchProduct(this.state.projectId, this.state.manufacturerName);
     }
 
+    onshow = () => {
+        this.setState({
+            displayModal : true,
+        })
+    }
+
+    handleCancel = () => {
+        this.setState({
+            displayModal : false,
+        })
+    }
+
+    onLogout = () => {
+        this.props.logout();
+    }
 
     render = () => {
         return (
@@ -111,8 +127,6 @@ const mapStateToProps = (state) => {
     return{
         interfaceShowing : state.interfaceShowing,
         projectList : state.projectList,
-
-
     }
 }
 

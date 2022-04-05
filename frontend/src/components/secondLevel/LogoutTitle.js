@@ -67,10 +67,6 @@ class LogoutTitle extends React.Component {
     };
 }
 
-
-
-
-
 const mapStateToProps = (state) => {
     return{
         interfaceShowing : state.interfaceShowing,

@@ -89,7 +89,7 @@ class SignUp extends React.Component {
                             borderWidth:0,
                             color:"black",
                         }}>
-                    SingUp
+                    SignUp
                 </Button>
                 <Modal
                     title="Register"

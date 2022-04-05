@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from "./components/firstLevel/Login";
-import {Layout} from "antd";
+import {Button, Layout} from "antd";
 import {Content, Header} from "antd/es/layout/layout";
 import SignUp from "./components/firstLevel/SignUp";
 import Background from "./629055.jpg";
@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import React from "react";
 import Headers from "./components/firstLevel/Headers";
 import Contents from "./components/firstLevel/Contents";
+import {returnToSearch} from "./actions/action";
 
 
 class App extends React.Component{
@@ -73,6 +74,9 @@ class App extends React.Component{
     //     loading : this.props.interfaceShowing,
     // }
 
+    onReturn = () => {
+        this.props.returnToSearch();
+    }
 
     render() {
         return (
@@ -117,6 +121,27 @@ class App extends React.Component{
                             <Login/>
                     }
                 </Content>
+                <footer>
+                    {
+                        this.props.isListing ?
+                        <div style={{
+                            display : "block",
+                        }}>
+                            <Button
+                                onClick={this.onReturn}
+                                style={{
+                                    display:"inline-block",
+                                    float : "right",
+                                    margin : 50,
+                                }}
+                            >
+                                return
+                            </Button>
+                        </div> :
+                            <div>
+                            </div>
+                    }
+                </footer>
             </Layout>
         );
     }
@@ -125,12 +150,13 @@ class App extends React.Component{
 const mapStateToProps = (state) => {
     return{
         interfaceShowing : state.interfaceShowing,
+        isListing : state.isListing,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-
+        returnToSearch : () => dispatch(returnToSearch()),
     }
 }
 
